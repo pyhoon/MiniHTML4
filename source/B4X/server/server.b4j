@@ -1,0 +1,30 @@
+﻿AppType=StandardJava
+Build1=Default,b4j.example
+Group=App
+Library1=jcore
+Library2=jserver
+Module1=|relative|..\..\Lib\MyLibrary
+NumberOfFiles=0
+NumberOfLibraries=2
+NumberOfModules=1
+Version=10.5
+@EndOfDesignText@
+' Server app
+#Region Project Attributes 
+	#CommandLineArgs:
+	#MergeLibraries: True 
+#End Region
+
+Sub Process_Globals
+	Private srvr As Server
+	Private obj1 As MyLibrary
+End Sub
+
+Sub AppStart (Args() As String)
+	obj1.Initialize
+	obj1.Name = "Hello world!!!"
+	srvr.Initialize("")
+	srvr.Start
+	Log(obj1.Name)
+	StartMessageLoop
+End Sub
