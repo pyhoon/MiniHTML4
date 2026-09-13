@@ -686,7 +686,7 @@ End Sub
 ' Convert a JSON value (Map or List) to MiniHtml
 Private Sub anyToMiniHtml (obj As Object) As MiniHtml
 	If obj Is Map Then
-		Return ShorthandToMiniHtml(obj)
+		Return shorthandToMiniHtml(obj)
 	Else If obj Is List Then
 		Dim list As List = obj
 		Dim root As MiniHtml
