@@ -1,12 +1,12 @@
 ﻿B4J=true
 ModulesStructureVersion=1
 Type=Class
-Version=10.5
+Version=10.7
 @EndOfDesignText@
 'Template use for generating Model.txt Code Snippets
 Sub Class_Globals
-' MiniHtml Model class
-' Version 3.31
+	'MiniHtml Model class
+	'Version 4.00
 	Private DB As MiniORM$end$
 	Type $Endpoints$ (category_id As Int, $endpoints$_code As String, $endpoints$_name As String, $endpoints$_price As Double)	
 End Sub
