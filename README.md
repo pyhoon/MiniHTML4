@@ -9,59 +9,52 @@ MiniHTML4 lets you construct HTML documents programmatically in B4X using an obj
 ## Features
 
 - **Fluent API** — Method chaining for concise, readable code
-- **Automatic tag mode** — Self-closing (`<br>`, `<img>`), uniline (`<span>text</span>`), multiline (`<div>\n  text\n</div>`), meta (`<!DOCTYPE>`, `<meta>`), or no-tag (raw text)
-- **Class & style management** — `addClass`, `removeClass`, `addStyle`, `removeStyle` with auto-sync to `class`/`style` attributes
-- **Attribute helpers** — `attr`, `attr2` (map), `attr3` (boolean), plus convenience methods: `lang`, `required`, `disabled`, `checked`, `selected`, `hidden`, `readonly`
-- **HTML parsing** — Parse existing HTML strings into MiniHtml objects (`Parse`, `ConvertFromBytes`, `ConvertToMiniHtml`)
-- **CDN helpers** — `cdn`, `cdn2`, `cdn3` for adding `<script>` and `<link>` tags with integrity/crossorigin support
-- **Comments** — `comment` (indented), `comment2` (inline)
-- **Text wrapping** — `text`, `text2` (overwrite), `textWrap` (indented)
-- **Output options** — `build` (no indent), `build2` (custom indent), `buildImpl` (custom indent + attribute alignment)
-- **Flat/minified output** — Set `Flat = True` to suppress line breaks
+- **Automatic tag mode** — Meta (`<meta>`, `<link>`, `<img>`, `<br>`, `<input>`, `<path>`), uniline (`<span>text</span>`), multiline (`<html>`, `<head>`, `<body>`, `<form>`, `<table>`, `<svg>`), self-closing (`<tag/>`), or no-tag (raw text)
+- **Class & style management** — `addClass`/`cls`, `removeClass`, `addStyle`/`sty`, `removeStyle` with auto-sync to `class`/`style` attributes, plus conditional `clsIf`/`addClassIf`/`clsIIf`/`addClassIIf`
+- **Attribute helpers** — `attr`, `attrs` (map), `bool` (boolean), conditional `attrIf`/`attrIfValue`/`attrsIfValues`/`attrsIfConditions`/`boolIf`, plus convenience methods: `lang`, `rel`, `href`, `src`, `integrity`, `crossorigin`, `required`, `disabled`, `checked`, `selected`, `selectedIf`, `hidden`, `readonly`, `defer`
+- **HTML parsing** — Parse existing HTML strings into MiniHtml objects (`parse`, `convertFromBytes`, `convertToMiniHtml`)
+- **JSON round-trip** — `fromJson`/`fromMap` (shorthand format) and `toMap`/`toJson`
+- **CDN helper** — `cdn(format, url)` for adding `<script>` and `<link>` tags (deprecated in favor of `MH.Script`/`MH.Link` with `src`/`href`)
+- **Comments** — `comment(value, position)` with `--` sanitizing
+- **Text** — `text(value, wrap)`, conditional `textIf`/`textIfValue`, `replace(value)`, `linebreak`, `script(value)`
+- **Output options** — `build(indent)` (default `-1` = no indent); `setFlat` syncs `LineFeed`/`Indentation`; `setDocType`/`getDocType` auto-prepends `<!DOCTYPE>`; `wrapAttributes`/`FormatAttributes` aligns attributes across lines
 - **Indentation control** — Customize indent string (default: `"  "`), control indent per-node
-- **Format attributes** — `FormatAttributes = True` aligns attributes across lines
-- **Child traversal** — `ChildByName`, `ChildById`, `ChildByIndex`, `ChildByClass` with deep search
+- **Child traversal** — `add`/`addChild`/`addTo`/`up`/`down`, `childByName`, `childById`, `childByIndex` (`child` alias), `childByClass` with deep search
 
 ## Project Structure
 
 ```
 MiniHTML4/
 ├── source/
-│   ├── Lib/                  # Library source code
-│   │   ├── MiniHtml.bas         # Core class — HTML tag builder
-│   │   ├── MiniHtmlParser.bas   # HTML parser (credits: Erel)
-│   │   ├── MC.bas               # Page & component caching utilities (generated from Cache.txt)
-│   │   ├── MH.bas               # Higher-level UI helpers & components (generated from Helper.txt)
-│   │   ├── Boilerplate.bas      # For generating Boilerplate.txt
-│   │   ├── Cache.bas            # For generating Cache.txt
-│   │   ├── Helper.bas           # For generating Helper.txt
-│   │   ├── Model.bas            # For generating Model.txt
-│   │   ├── View.bas             # For generating View.txt
-│   │   ├── Handler.bas          # For generating Handler.txt
-│   │   ├── Index.bas            # Index server handler
-│   │   ├── MiniHTML.b4j         # B4J project file
-│   │   ├── manifest.txt         # Library manifest
-│   │   ├── libs.json            # External library dependencies
-│   │   ├── Snippets/            # Code template snippets (.txt)
-│   │   │   ├── Boilerplate.txt     # Boilerplate page template
-│   │   │   ├── Cache.txt           # Cache module template
-│   │   │   ├── Helper.txt          # Helper module template
-│   │   │   ├── Model.txt           # Database model template (Pakai Server Model)
-│   │   │   ├── View.txt            # View page template with caching (Pakai Server View)
-│   │   │   └── Handler.txt         # CRUD handler template (Pakai Server Handler)
-│   │   └── Files/               # Config & asset files (empty)
-│   └── B4X/                  # B4X multi-platform app projects
-│       ├── B4A/                 # Android app project
-│       ├── B4i/                 # iOS app project
-│       ├── B4J/                 # Desktop app project
-│       ├── server/              # Server-side B4J project
-│       ├── B4XMainPage.bas      # Shared main page
-│       └── Shared Files/        # Cross-platform shared assets
+│   ├── MiniHtml.bas            # Core class — HTML tag builder
+│   ├── MiniHtmlParser.bas      # HTML parser (credits: Erel)
+│   ├── Helper.bas              # Higher-level UI helpers & components (for generating Helper.txt → MH.bas)
+│   ├── MH.bas                  # Generated helper module (do not edit; edit Helper.bas instead)
+│   ├── Cache.bas               # Page & component caching utilities (for generating Cache.txt → MC.bas)
+│   ├── MC.bas                  # Generated cache module (do not edit; edit Cache.bas instead)
+│   ├── Boilerplate.bas         # For generating Boilerplate.txt
+│   ├── Model.bas               # For generating Model.txt
+│   ├── View.bas                # For generating View.txt
+│   ├── Handler.bas             # For generating Handler.txt
+│   ├── Index.bas               # Index server handler
+│   ├── MainView.bas            # Main View class template
+│   ├── MiniHTML.b4j            # B4J project file
+│   ├── manifest.txt            # Library manifest (Version 4.00)
+│   ├── libs.json               # External library dependencies
+│   ├── Snippets/               # Code template snippets (.txt)
+│   │   ├── Boilerplate.txt        # Boilerplate page template
+│   │   ├── Cache.txt              # Cache module template
+│   │   ├── Helper.txt             # Helper module template
+│   │   ├── Model.txt              # Database model template
+│   │   ├── View.txt               # View page template with caching
+│   │   └── Handler.txt            # CRUD handler template
+│   └── Files/                  # Config & asset files
 ├── release/
-│   └── MiniHTML.b4xlib     # Compiled library
-├── Helper.md               # Helper.bas API reference
-├── Cache.md                # Cache.bas API reference
-├── LICENSE                 # MIT License
+│   └── MiniHTML.b4xlib        # Compiled library
+├── Helper.md                  # Helper.bas API reference
+├── Cache.md                   # Cache.bas API reference
+├── CHANGELOG.md               # Version history
+├── LICENSE                    # MIT License
 └── README.md
 ```
 
@@ -90,6 +83,7 @@ File.WriteString(File.DirApp, "index.html", html1.build)
 
 | Method | Tag |
 |--------|-----|
+| `Create(Name, multiline)` | Any tag (generic factory) |
 | `Html` | `<html lang="en">` |
 | `Head` | `<head>` |
 | `Body` | `<body>` |
@@ -116,7 +110,7 @@ File.WriteString(File.DirApp, "index.html", html1.build)
 | `Img` | `<img>` |
 | `Image` | Alias for `Img` |
 | `Meta` | `<meta>` |
-| `Link` | `<link>` |
+| `Link(rel, typeof)` | `<link>` |
 | `Script` | `<script>` |
 | `Style` | `<style>` |
 | `Strong` | `<strong>` |
@@ -127,72 +121,81 @@ File.WriteString(File.DirApp, "index.html", html1.build)
 | `Path` | `<path>` |
 | `Footer` | `<footer>` |
 | `Caption` | `<caption>` |
-| `H1`, `H2`, `H3`, `H5`, `H6` | Heading tags |
+| `H1`, `H2`, `H3`, `H5`, `H6` | Heading tags (no `H4` in source) |
 
 ### MiniHtml — Key Methods
 
 **Construction:**
 - `Initialize(Name As String = ModeNoTag, Mode As String = "default", Flat As Boolean = False, Indents As Int = 0, IndentString As String = "  ")` — Create a MiniHtml object with optional parameters
-- `build` — Render to string (no indent, no CRLF on first line)
-- `build2(indent)` — Render with custom indent
-- `buildImpl(indent, AlignAttributes)` — Full control
+- `build(indent As Int = -1)` — Render to string (`-1` = no indent)
+- `setDocType(value)` / `getDocType` — DOCTYPE auto-prepended before `<html>` (default `"html"`)
+- `wrapAttributes` — Align multi-line attributes (same as `FormatAttributes = True`)
 
 **Adding children:**
-- `add(ChildTag)` — Add child, returns child
-- `up(ParentTag)` — Add to parent, returns self (alias for `addTo`)
-- `addTo(ParentTag)` — Add to parent, returns self
-- `text(value)` — Add inner text
-- `text2(value)` — Clear children and set inner text
-- `textWrap(value)` — Add indented inner text
+- `add(ChildTag)` — Add child, returns parent
+- `addChild(ChildTag)` — Add child, returns child
+- `up(ParentTag)` / `addTo(ParentTag)` — Add self to parent, returns self
+- `down(ChildTag)` — Add child, returns child (alias for `addChild`)
+- `text(value, wrap)` — Add inner text
+- `replace(value)` — Clear children and set inner content
+- `textIf(condition, value)` / `textIfValue(value)` — Conditional text
 - `script(value)` — Add `<script>value</script>` child
 - `linebreak` — Add a non-indented line break
-- `comment(value)` — Add `<!-- value -->` with indent
-- `comment2(value, newline)` — Add inline comment
+- `comment(value, position)` — Insert `<!-- value -->` above/below current tag (`--` sanitized; requires parent)
 
 **Attributes:**
 - `attr(key, value)` — Set attribute
-- `attr2(map)` — Set multiple attributes from map
-- `attr3(key)` — Set boolean attribute (no value)
+- `attrs(keyvals)` — Set multiple attributes from map
+- `bool(key)` — Set boolean attribute (no value)
+- `attrIf(condition, key, value)` / `attrIfValue(key, value)` — Conditional attributes
+- `attrsIfConditions(keyconditions, keyvals)` / `attrsIfValues(keyvals)` — Conditional attr maps
+- `boolIf(condition, key)` — Conditional boolean attribute
+- `lang(value)`, `rel(value)`, `href(value)`, `src(value)`, `integrity(hash)`, `crossorigin(credentials)` — Convenience attributes
 
 **Classes & Styles:**
 - `cls(value)` or `addClass(value)` — Add class(es)
 - `removeClass(value)` — Remove class
 - `sty(value)` or `addStyle(value)` — Add style(s) (semicolon-separated)
 - `removeStyle(key)` — Remove style
+- `clsIf(condition, value)` / `addClassIf(condition, value)` — Conditional class
+- `clsIIf(condition, valTrue, valFalse)` / `addClassIIf(condition, valTrue, valFalse)` — Ternary class
+- `multilineIf(condition)` — Set multiline mode if true
+- `uniline` / `multiline` — Fluent mode setters
+- `classesAsString` / `stylesAsString` — Serialize class list / style map
 
 **Boolean attributes:**
-- `required`, `disabled`, `checked`, `selected`, `hidden`, `readonly`
+- `required`, `disabled`, `checked`, `selected`, `hidden`, `readonly`, `defer`
+- `selectedIf(condition)` — Conditional selected
 
-**CDN helpers:**
-- `cdn(format, url)` — Add `<script src="...">` or `<link href="...">`
-- `cdn2(format, url, integrity, crossorigin)` — With SRI
-- `cdn3(format, url, keyvals)` — With extra attributes
+**CDN helper (deprecated — prefer `MH.Script`/`MH.Link`):**
+- `cdn(format, url)` — Add `<script src="...">` (`script`/`js`) or `<link href="...">` (`style`/`css`)
 
 **Traversal:**
-- `ChildByName(value)` — Deep search by tag name
-- `ChildById(value)` — Deep search by `id` attribute
-- `ChildByClass(value)` — Deep search by CSS class name
-- `ChildByIndex(index)` — Get child by position
-- `child(index)` — Alias for `ChildByIndex` (deprecated)
+- `childByName(value)` — Deep search by tag name
+- `childById(value)` — Deep search by `id` attribute
+- `childByClass(value)` — Deep search by CSS class name
+- `childByIndex(index)` — Get child by position
+- `child(index)` — Alias for `childByIndex`
 
 **Parsing & JSON:**
-- `Parse(HtmlText)` — Parse HTML string into MiniHtml
-- `FromJson(JsonStr)` — Parse JSON string into MiniHtml tree (shorthand format)
-- `FromMap(m As Map)` — Parse pre-parsed Map into MiniHtml (shorthand format)
-- `ToMap` — Serialize MiniHtml tree to a Map in shorthand format
-- `ToJson` — Serialize MiniHtml tree to a JSON string
-- `ConvertFromBytes(Buffer())` — Parse from byte array
-- `ConvertToBytes` — Serialize to byte array
-- `ConvertToMiniHtml(HtmlNode)` — Convert parser node to MiniHtml
+- `parse(HtmlText)` — Parse HTML string into MiniHtml
+- `fromJson(JsonStr)` — Parse JSON string into MiniHtml tree (shorthand format)
+- `fromMap(m As Map)` — Parse pre-parsed Map into MiniHtml (shorthand format)
+- `toMap` — Serialize MiniHtml tree to a Map in shorthand format
+- `toJson` — Serialize MiniHtml tree to a JSON string
+- `convertFromBytes(Buffer())` — Parse from byte array
+- `convertToBytes` — Serialize to byte array
+- `convertToMiniHtml(HtmlNode)` — Convert parser node to MiniHtml
 
-**Configuration:**
-- `Flat` — Suppress line breaks (minified output)
-- `Indentation` — Enable/disable per-node indent
-- `LineFeed` — Enable/disable CRLF
-- `IndentString` — Indentation string (default: `"  "`)
-- `FormatAttributes` — Align multi-line attributes
-- `Mode` — `uniline`, `multiline`, `meta`, `self`, `notext`
-- `SpecialTags` — Tags excluded from default indentation
+**Configuration (via getters/setters):**
+- `setFlat` / `getFlat` — Suppress line breaks (auto-syncs `LineFeed`/`Indentation`)
+- `setIndentation` / `getIndentation` — Enable/disable per-node indent
+- `setLineFeed` / `getLineFeed` — Enable/disable CRLF
+- `setIndentString` / `getIndentString` — Indentation string (default: `"  "`)
+- `setIndents` / `getIndents` — Indent amount
+- `setFormatAttributes` / `getFormatAttributes` — Align multi-line attributes
+- `setMode` / `getMode` — `uniline`, `multiline`, `meta`, `self`, `""` (no-tag)
+- `getName`, `getChildren`/`setChildren`, `getParent`/`setParent`, `getAttributes`/`setAttributes`
 
 ### Helper.bas — UI Components & Helpers
 
@@ -200,14 +203,14 @@ See full API reference in [Helper.md](Helper.md).
 
 | Category | Key Methods |
 |----------|-------------|
-| **Tag Factories** | `Anchor`, `Button`, `Div`, `Span`, `H1`–`H6`, `Table`, `Form`, `Input`, `SelectTag`, `Img`, `Image`, `Svg`, and 30+ more |
-| **Navigation** | `Navbar`, `NavbarExpand`, `NavbarToggler`, `NavbarCollapse`, `NavItem`, `NavLinkItem`, `NavLinkItemImage`, `CategoriesLink`, `GitHubLink` |
-| **Form Helpers** | `FormHx`, `FormHxPost`, `FormHxPut`, `FormHxDelete`, `ContainerHxGet` |
-| **Bootstrap UI** | `Alert`, `Toast`, `ContainerModal`, `ContainerToast`, `ButtonClose`, `ButtonAdd`, `ButtonSubmit`, `ButtonCancel`, `AnchorIcon` |
-| **Inputs** | `InputSearch`, `TextLabel`, `RequiredLabel`, `HiddenInput`, `RequiredTextInput`, `FormGroup`, `InputGroup` |
-| **Icons & Images** | `IconAnchor`, `ImageAnchor`, `FavoriteIcon` |
-| **Layout** | `ResponsiveHeader`, `CopyrightFooter`, `SponsorLink` |
-| **Utilities** | `OptionDisabled`, `ButtonSearch` |
+| **Tag Factories** | `Create`, `Anchor`, `Button`, `Div`, `Span`, `H1`–`H3`, `H5`–`H6` (no `H4`), `Table`, `Form`, `Input`, `SelectTag`, `Img`, `Image` (alias), `Svg`, `Link(rel, typeof)`, and 30+ more |
+| **Navigation** | `Navbar`, `NavbarExpand(cls, expand, brand_icon_cls, brand_text)`, `NavbarToggler`, `NavbarCollapse`, `NavItem`, `NavLinkItem`, `NavLinkItemImage` |
+| **Form Helpers** | `FormHx`, `FormHxPost`, `FormHxPut`, `FormHxDelete`, `ContainerHxGet`, `HxGet`, `HxPost` |
+| **Bootstrap UI** | `Alert`, `Toast`, `ContainerModal`, `ContainerModalWithButton`, `ContainerToast`, `ModalHeader`, `ModalBody`, `ModalMessage`, `ModalFooter`, `ButtonClose`, `ButtonAdd`, `ButtonSubmit`, `ButtonCancel`, `AnchorIcon` |
+| **Inputs** | `InputSearch`, `TextLabel`, `RequiredLabel`, `HiddenInput`, `RequiredTextInput`, `RequiredDropdown`, `FormGroup`, `InputGroup`, `SelectInput`, `OptionDisabled`, `OptionSelected`, `CheckboxInput`, `RadioInput` |
+| **Icons & Images** | `AnchorIcon`, `AnchorImage`, `FavoriteIcon` |
+| **Layout** | `Container`, `ContainerFluid`, `Row`, `Col`, `ResponsiveHeader`, `CopyrightFooter`, `SponsorLink`, `GitHubLink`, `Card`, `Badge`, `AlertDismissible` |
+| **Utilities** | `CreateMiniJs`, `CreateCustomEventScript`, `ConvertFromBytes`, `ConvertToBytes`, `CssLink`, `JsScript`, `ButtonSearch`, `PageHeading`, `ButtonIcon`, `AnchorButton` |
 
 ### Cache.bas — Caching Utilities
 
@@ -221,7 +224,7 @@ See full API reference in [Cache.md](Cache.md).
 | `ClearFromCache(ctx, Key)` | `-` | Remove a single key from cache |
 | `ClearAllFromCache(ctx, MatchKey)` | `-` | Remove all keys containing `MatchKey` |
 | `ConvertFromBytes(Buffer())` | `MiniHtml` | Parse byte array into MiniHtml tree |
-| `ConvertToBytes` | `Byte()` | Serialize MiniHtml tree to byte array (renamed from `ConvertToMiniHtml`) |
+| `ConvertToBytes(tag)` | `Byte()` | Serialize MiniHtml tree to byte array |
 
 ### MiniHtmlParser — HTML Parser
 
@@ -233,6 +236,8 @@ The parser (credits to Erel) converts HTML strings into a tree of `HtmlNode` obj
 
 **Key methods:**
 - `Parse(HtmlText)` — Returns root HtmlNode
+- `IsRoot(n)` — Test if node is the document root
+- `setShowParserLogs(value)` — Enable/disable parser debug logs
 - `FindNode(Root, TagName, Attribute)` — Recursive node search
 - `FindDirectNodes(Root, TagName, Attribute)` — Direct children search
 - `IsNodeMatches(Node, TagName, Attribute)` — Match test
@@ -268,6 +273,7 @@ The outer key is the tag name, and its value is a map of properties. A string va
 | `flat` | bool | Suppress line breaks |
 | `indentation` | bool | Enable indentation |
 | `formatattributes` | bool | Align multi-line attributes |
+| `defer` | bool | Boolean attribute |
 | `required` | bool | Boolean attribute |
 | `disabled` | bool | Boolean attribute |
 | `checked` | bool | Boolean attribute |
@@ -367,6 +373,16 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Changelog
 
+### v4.00 (Latest)
+
+**Library version bump (`manifest.txt` → 4.00):**
+- `Helper.bas` / `MH.bas` — `Create` now takes `(Name, multiline)`; `Link` now takes `(rel, typeof)`; `NavbarExpand` takes `(cls, expand, brand_icon_cls, brand_text)`; `ProgressBar` first param renamed to `NowPercent`
+- `Helper.bas` / `MH.bas` — Canonical names are `AnchorIcon` / `AnchorImage` (docs previously listed swapped `IconAnchor` / `ImageAnchor`); new/documented `CreateMiniJs`, `CreateCustomEventScript`, `OptionSelected`, `ModalHeader`, `ModalBody`, `ModalMessage`, `ModalFooter`
+- `Cache.bas` / `MC.bas` — `ConvertToBytes(tag)` takes the tag to serialize (docs previously showed no param / "empty tag")
+- `MiniHtml.bas` — Single `build(indent)` renderer (docs previously listed removed `build2`/`buildImpl`); `text2`/`textWrap`/`comment2`/`attr2`/`attr3`/`cdn2`/`cdn3`/`SpecialTags` removed from docs (not in source — use `replace`, `comment(value, position)`, `attrs`, `bool`, `cdn`, `wrapAttributes`)
+- `MiniHtmlParser.bas` — Documented `IsRoot` and `setShowParserLogs`
+- Project structure section rewritten to match the actual flat `source/` layout
+
 ### v3.31
 
 **Bug Fix:**
@@ -450,5 +466,5 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Links
 
-- [B4X Forum](https://www.b4x.com/android/forum/threads/b4x-minihtml3.171326/)
-- [GitHub](https://github.com/pyhoon/MiniHTML3)
+- [B4X Forum](https://www.b4x.com/android/forum/threads/b4x-minihtml4.172058/)
+- [GitHub](https://github.com/pyhoon/MiniHTML4)
