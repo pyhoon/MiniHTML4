@@ -499,7 +499,7 @@ Public Sub removeClass (value As String) As MiniHtml
 	Try
 		Dim names() As String = Regex.Split(" ", value)
 		For Each subname As String In names
-			If mClasses.IndexOf(subname) > -1 Then mClasses.RemoveAt(mClasses.IndexOf(value))
+			If mClasses.IndexOf(subname) > -1 Then mClasses.RemoveAt(mClasses.IndexOf(subname))
 		Next
 		updateClassAttribute
 	Catch
