@@ -6,7 +6,8 @@ Static-code module providing tag factories, Bootstrap 5 UI components, form help
 
 | Method | Tag | Notes |
 |--------|-----|-------|
-| `Create(Name)` | `any` | Generic tag factory |
+| `Create(Name, multiline)` | `any` | Generic tag factory; forces `multiline` mode when tag supports uniline/multiline |
+| `CreateMiniJs` | `—` | Create a `MiniJs` instance for custom event scripts |
 | `Html` | `<html>` | With `lang="en"` |
 | `Head` | `<head>` | |
 | `Body` | `<body>` | |
@@ -24,7 +25,7 @@ Static-code module providing tag factories, Bootstrap 5 UI components, form help
 | `Script` | `<script>` | |
 | `Style` | `<style>` | |
 | `Meta` | `<meta>` | |
-| `Link` | `<link>` | |
+| `Link(rel, typeof)` | `<link>` | `rel` defaults to `"stylesheet"`, empty `type` omitted |
 | `Icon` | `<i>` | |
 | `Img` | `<img>` | |
 | `Image` | `<img>` | Alias for `Img` |
@@ -55,7 +56,7 @@ Static-code module providing tag factories, Bootstrap 5 UI components, form help
 | `Alert(info)` | `String` | Renders `<div class="alert alert-{status}">{message}</div>` |
 | `Toast(id, table, info)` | `String` | HTMX out-of‑band swap container + MiniJs event dispatch |
 | `NavLinkItem(text, href, icon_cls, icon_title)` | `MiniHtml` | `<li class="nav-item">` with anchor + icon |
-| `AnchorIcon(cls, hx_get, title_text, icon_class)` | `MiniHtml` | Anchor with hx-get for modal trigger + icon |
+| `AnchorIcon(cls, href, icon_class, icon_title)` | `MiniHtml` | Anchor with icon; empty `href`/`title` omitted |
 | `ButtonClose` | `MiniHtml` | `<button type="button" class="btn-close" data-bs-dismiss="modal">` |
 | `ButtonAdd(text, cls, hx_get, hx_target, hx_trigger, data_bs_target, data_bs_toggle)` | `MiniHtml` | Button with icon + HTMX modal attributes |
 | `ButtonSubmit(text, cls)` | `MiniHtml` | `<button type="submit">` |
@@ -73,17 +74,22 @@ Static-code module providing tag factories, Bootstrap 5 UI components, form help
 | `ContainerModalWithButton(TitleText, ParagraphText, ButtonText)` | `MiniHtml` | Modal with header, body, footer + dismiss button |
 | `ContainerToast` | `MiniHtml` | Fixed-position toast container (bottom‑right) |
 | `NavLinkItemImage(href, img_src, img_title)` | `MiniHtml` | `<li class="nav-item">` with anchor + image |
-| `IconAnchor(cls, href, icon_class, icon_title)` | `MiniHtml` | Anchor with icon |
-| `ImageAnchor(href, img_src, img_class, img_title)` | `MiniHtml` | Anchor with image |
+| `AnchorImage(href, img_src, img_class, img_title)` | `MiniHtml` | Anchor with image; empty `href`/`title` omitted |
 | `FavoriteIcon(icon_type, href)` | `MiniHtml` | `<link rel="icon" type="..." href="...">` |
 | `OptionDisabled(text)` | `MiniHtml` | `<option value="" disabled>{text}</option>` |
+| `OptionSelected(text, value, selected)` | `MiniHtml` | `<option value="...">` with conditional `selected` |
+| `ModalHeader(text)` | `MiniHtml` | Modal header with title + close button |
+| `ModalBody` | `MiniHtml` | `<div class="modal-body">` |
+| `ModalMessage` | `MiniHtml` | `<div id="modal-messages">` message container |
+| `ModalFooter(Submit_text, Cancel_text, Submit_class, Cancel_class)` | `MiniHtml` | Modal footer with submit/cancel buttons |
 
 ## Conversion Helpers
 
 | Method | Returns | Description |
 |--------|---------|-------------|
 | `ConvertFromBytes(Buffer())` | `MiniHtml` | Parse UTF‑8 byte array into MiniHtml tree |
-| `ConvertToBytes(Root)` | `Byte()` | Serialize MiniHtml tree to UTF‑8 byte array |
+| `ConvertToBytes(tag)` | `Byte()` | Serialize MiniHtml tree (`tag.build`) to UTF‑8 byte array |
+| `CreateCustomEventScript(info)` | `MiniJs` | `entity:changed` custom event dispatch script for `Toast` |
 
 ## Bootstrap Layout Helpers
 
@@ -127,7 +133,7 @@ All form helpers apply `form-control` class and guard empty-string parameters.
 | `ListGroup` | `MiniHtml` | `<ul class="list-group">` |
 | `ListGroupItem(text, cls)` | `MiniHtml` | `<li class="list-group-item {cls}">{text}</li>` |
 | `ListGroupButton(text, cls, active)` | `MiniHtml` | `<button class="list-group-item list-group-item-action {cls}[ active]">` |
-| `ProgressBar(now, MinValue, MaxValue, cls, showLabel)` | `MiniHtml` | Progress bar with ARIA attrs |
+| `ProgressBar(NowPercent, MinValue, MaxValue, cls, showLabel)` | `MiniHtml` | Progress bar with ARIA attrs |
 | `Spinner(cls, text)` | `MiniHtml` | `<div class="spinner-border {cls}">` + sr‑only text |
 | `SpinnerGrow(cls, text)` | `MiniHtml` | `<div class="spinner-grow {cls}">` + sr‑only text |
 | `AlertDismissible(message, status)` | `MiniHtml` | Dismissible Bootstrap alert with close button |
@@ -149,7 +155,7 @@ All form helpers apply `form-control` class and guard empty-string parameters.
 | Method | Returns | Description |
 |--------|---------|-------------|
 | `Navbar(cls)` | `MiniHtml` | `<nav class="navbar {cls}">` with `container-fluid` child |
-| `NavbarExpand(cls, expand, brand)` | `MiniHtml` | `<nav class="navbar navbar-expand-{expand} {cls}">` with brand |
+| `NavbarExpand(cls, expand, brand_icon_cls, brand_text)` | `MiniHtml` | `<nav class="navbar navbar-expand-{expand} {cls}">` with icon + text brand anchors |
 | `NavbarToggler` | `MiniHtml` | Collapse toggler button (`navbar-toggler`) |
 | `NavbarCollapse` | `MiniHtml` | Collapsible nav container (`collapse navbar-collapse`) |
 | `NavItem(text, href, active)` | `MiniHtml` | `<li class="nav-item"><a class="nav-link[ active]" href="...">` |
