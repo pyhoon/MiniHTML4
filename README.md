@@ -30,26 +30,26 @@ MiniHTML4/
 │   ├── Lib/                  # Library source code
 │   │   ├── MiniHtml.bas         # Core class — HTML tag builder
 │   │   ├── MiniHtmlParser.bas   # HTML parser (credits: Erel)
-│   │   ├── MC.bas               # Static cache module - generated from Code Snippet (Cache.txt)
-│   │   ├── MH.bas               # Static helper module - generated from Code Snippet (Helper.txt)
-│   │   ├── Cache.bas            # Page & component caching utilities - for generating Cache.txt
-│   │   ├── Helper.bas           # Higher-level UI helpers & components - for generating Helper.txt
-│   │   ├── Model.bas            # Pakai Server Model - for generating Model.txt
-│   │   ├── View.bas             # Pakai Server View - for generating View.txt
-│   │   ├── Handler.bas          # Pakai Server Handler - for generating Handler.txt
-│   │   ├── Index.bas            # Demo handler (B4J servlet)
+│   │   ├── MC.bas               # Page & component caching utilities (generated from Cache.txt)
+│   │   ├── MH.bas               # Higher-level UI helpers & components (generated from Helper.txt)
+│   │   ├── Boilerplate.bas      # For generating Boilerplate.txt
+│   │   ├── Cache.bas            # For generating Cache.txt
+│   │   ├── Helper.bas           # For generating Helper.txt
+│   │   ├── Model.bas            # For generating Model.txt
+│   │   ├── View.bas             # For generating View.txt
+│   │   ├── Handler.bas          # For generating Handler.txt
+│   │   ├── Index.bas            # Index server handler
 │   │   ├── MiniHTML.b4j         # B4J project file
 │   │   ├── manifest.txt         # Library manifest
-│   │   ├── libs.json            # External library dependencies (EndsMeet)
+│   │   ├── libs.json            # External library dependencies
 │   │   ├── Snippets/            # Code template snippets (.txt)
-│   │   │   ├── Handler.txt         # CRUD handler template
-│   │   │   ├── View.txt            # View page template with caching
-│   │   │   ├── Model.txt           # Database model template
-│   │   │   ├── Helper.txt          # Helper module template (MH.bas)
 │   │   │   ├── Boilerplate.txt     # Boilerplate page template
-│   │   │   ├── Cache.txt           # Cache module template (MC.bas)
-│   │   │   └── CurrentDateTime.txt # Date/time utility snippet
-│   │   └── Files/               # Config & asset files
+│   │   │   ├── Cache.txt           # Cache module template
+│   │   │   ├── Helper.txt          # Helper module template
+│   │   │   ├── Model.txt           # Database model template (Pakai Server Model)
+│   │   │   ├── View.txt            # View page template with caching (Pakai Server View)
+│   │   │   └── Handler.txt         # CRUD handler template (Pakai Server Handler)
+│   │   └── Files/               # Config & asset files (empty)
 │   └── B4X/                  # B4X multi-platform app projects
 │       ├── B4A/                 # Android app project
 │       ├── B4i/                 # iOS app project
@@ -76,11 +76,11 @@ MiniHTML4/
 ' Build a simple HTML page
 Dim html1 As MiniHtml = MH.Html
 Dim head1 As MiniHtml = MH.Head.up(html1)
-Dim title1 As MiniHtml = MH.Title.up(head1)
-title1.text("Hello")
+MH.Title.up(head1).text("Hello")
 Dim body1 As MiniHtml = MH.Body.up(html1)
 Dim div1 As MiniHtml = MH.Div.up(body1)
-div1.cls("container").text("Hello World!")
+div1.cls("container")
+div1.text("Hello World!")
 File.WriteString(File.DirApp, "index.html", html1.build)
 ```
 
@@ -132,7 +132,7 @@ File.WriteString(File.DirApp, "index.html", html1.build)
 ### MiniHtml — Key Methods
 
 **Construction:**
-- `Initialize(Name)` — Create a tag with auto-detected mode
+- `Initialize(Name As String = ModeNoTag, Mode As String = "default", Flat As Boolean = False, Indents As Int = 0, IndentString As String = "  ")` — Create a MiniHtml object with optional parameters
 - `build` — Render to string (no indent, no CRLF on first line)
 - `build2(indent)` — Render with custom indent
 - `buildImpl(indent, AlignAttributes)` — Full control
