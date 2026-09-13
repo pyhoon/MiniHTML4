@@ -29,9 +29,9 @@ MiniHTML4/
 │   ├── MiniHtml.bas            # Core class — HTML tag builder
 │   ├── MiniHtmlParser.bas      # HTML parser (credits: Erel)
 │   ├── Helper.bas              # Higher-level UI helpers & components (for generating Helper.txt → MH.bas)
-│   ├── MH.bas                  # Generated helper module (do not edit; edit Helper.bas instead)
+│   ├── MH.bas                  # Generated helper module
 │   ├── Cache.bas               # Page & component caching utilities (for generating Cache.txt → MC.bas)
-│   ├── MC.bas                  # Generated cache module (do not edit; edit Cache.bas instead)
+│   ├── MC.bas                  # Generated cache module
 │   ├── Boilerplate.bas         # For generating Boilerplate.txt
 │   ├── Model.bas               # For generating Model.txt
 │   ├── View.bas                # For generating View.txt
