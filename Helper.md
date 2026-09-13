@@ -6,7 +6,7 @@ Static-code module providing tag factories, Bootstrap 5 UI components, form help
 
 | Method | Tag | Notes |
 |--------|-----|-------|
-| `CreateTag(Name)` | `any` | Generic tag factory |
+| `Create(Name)` | `any` | Generic tag factory |
 | `Html` | `<html>` | With `lang="en"` |
 | `Head` | `<head>` | |
 | `Body` | `<body>` | |
