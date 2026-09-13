@@ -2,12 +2,12 @@
 Group=Views
 ModulesStructureVersion=1
 Type=Class
-Version=10.5
+Version=10.7
 @EndOfDesignText@
 'Template use for generating View.txt Code Snippets
 Sub Class_Globals
-' MiniHtml View class
-' Version 3.31
+	'MiniHtml View class
+	'Version 4.00
 	Private App As EndsMeet$end$
 End Sub
 
@@ -46,7 +46,7 @@ Public Sub Modal (Action As String, CategoryList As List, Data As Map) As String
 		Case "Delete"
 			Dim modal1 As MiniHtml = CreateOrReadFromCache("$Endpoints$ Delete Modal")
 			modal1.ChildById("id").attr("value", Data.Get("id"))
-			modal1.ChildById("p1").text2($"Delete ${Data.Get("product_name")} (${Data.Get("product_code")})?"$)
+			modal1.ChildById("p1").replace($"Delete ${Data.Get("product_name")} (${Data.Get("product_code")})?"$)
 			Return modal1.build
 		Case Else
 			Return ""
@@ -131,10 +131,10 @@ Public Sub $Endpoints$TableFilled (data As List) As MiniHtml
 	tbody1.Children.Clear
 	For Each row As Map In data
 		Dim tr1 As MiniHtml = CreateOrReadFromCache("$Endpoints$ Table Row")
-		tr1.child(0).text2(row.Get("id"))
-		tr1.child(1).text2(row.Get("$endpoint$_code"))
-		tr1.child(2).text2(row.Get("$endpoint$_name"))
-		tr1.child(3).text2(row.Get("category_name"))
+		tr1.child(0).replace(row.Get("id"))
+		tr1.child(1).replace(row.Get("$endpoint$_code"))
+		tr1.child(2).replace(row.Get("$endpoint$_name"))
+		tr1.child(3).replace(row.Get("category_name"))
 		tr1.child(4).child(0).attr("hx-get", "/hx/$endpoints$/edit/" & row.Get("id"))
 		tr1.child(4).child(1).attr("hx-get", "/hx/$endpoints$/delete/" & row.Get("id"))
 		tr1.up(tbody1)
@@ -212,7 +212,7 @@ Private Sub ModalDelete As MiniHtml
 	Dim ModalBody As MiniHtml = MH.ModalBody.up(form1)
 	MH.ModalMessage.up(ModalBody)
 	MH.HiddenInput("id", "id", "").up(ModalBody)
-	MH.P.up(ModalBody).Id = "p1"
+	MH.P.up(ModalBody).attr("id", "p1")
 	MH.ModalFooter("Delete", "Cancel", "danger", "secondary").up(form1)
 	Return form1
 End Sub
