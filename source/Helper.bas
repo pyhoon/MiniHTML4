@@ -6,8 +6,8 @@ Version=10.5
 @EndOfDesignText@
 'For generating Helper.txt Code Snippets (MH.bas)
 Sub Process_Globals
-'MiniHtml Helper
-'Version: 4.00
+	'MiniHtml Helper
+	'Version: 4.00
 	Type AlertInfo (Message As String, Status As String)
 	Type ToastInfo (Entity As String, Action As String, Message As String, Status As String)
 End Sub
