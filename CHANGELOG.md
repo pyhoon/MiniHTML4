@@ -1,6 +1,38 @@
 # Changelog
 
-## v3.30 (Latest)
+## v4.00 (Latest)
+
+### Docs synced with source (Version 4.00)
+
+**Helper.bas / MH.bas:**
+- `Create(Name, multiline)` — generic factory with multiline override; `CreateMiniJs` documented
+- `Link(rel, typeof)` — `rel` defaults to `"stylesheet"`, empty `type` omitted
+- `NavbarExpand(cls, expand, brand_icon_cls, brand_text)` — 4-param signature
+- `ProgressBar(NowPercent, ...)` — first param renamed from `now`
+- Canonical names `AnchorIcon(cls, href, icon_class, icon_title)` and `AnchorImage(href, img_src, img_class, img_title)` (previously mis-documented as `IconAnchor` / `ImageAnchor`)
+- Newly documented: `OptionSelected`, `ModalHeader`, `ModalBody`, `ModalMessage`, `ModalFooter`, `CreateCustomEventScript`
+- `ConvertToBytes(tag)` — takes the tag to serialize
+
+**Cache.bas / MC.bas:**
+- `ConvertToBytes(tag)` — serializes the given tag (`tag.build`); usage fixed to `Cache.ConvertToBytes(el)`
+
+**MiniHtml.bas:**
+- Single `build(indent As Int = -1)` renderer; `setDocType`/`getDocType`, `wrapAttributes`, `replace`, `addChild`/`down`, `attrs`/`bool` + conditional variants, `rel`/`href`/`src`/`integrity`/`crossorigin`, `defer`/`selectedIf`, `multilineIf`, `classesAsString`/`stylesAsString` documented
+- Removed from docs (not in source): `build2`/`buildImpl`, `text2`/`textWrap`, `comment2`, `attr2`/`attr3`, `cdn2`/`cdn3`, `SpecialTags`
+
+**MiniHtmlParser.bas:**
+- Documented `IsRoot` and `setShowParserLogs`
+
+---
+
+## v3.31
+
+**Bug Fix:**
+- Uniline tags no longer get extra line break before closing tag (regression in v3.30). Fixed `buildImpl` condition from `If mFlat = False` to `If mFlat = False And mMode = mMultiline`.
+
+---
+
+## v3.30
 
 ### MiniHtml.bas — Rendering Overhaul
 
