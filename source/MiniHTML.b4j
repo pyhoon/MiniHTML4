@@ -42,7 +42,7 @@ Version=10.7
 'Step 5
 #Macro: Title, Copy to B4X AddLibs, ide://run?File=%COMSPEC%&Args=/c&Args=copy&Args=%PROJECT%\..\..\release\%PROJECT_NAME%.b4xlib&Args=%ADDITIONAL%\..\B4X
 'Step 6
-#Macro: Title, Release Folder, ide://run?File=%WINDIR%\SysWOW64\explorer.exe&Args=%PROJECT%\..\..\release
+'#Macro: Title, Release Folder, ide://run?File=%WINDIR%\SysWOW64\explorer.exe&Args=%PROJECT%\..\..\release
 #End Region
 Sub Process_Globals
 	Public App As EndsMeet
@@ -52,14 +52,12 @@ End Sub
 ' <link>Donate|https://paypal.me/aeric80/</link> | <link>Forum|https://www.b4x.com/android/forum/threads/b4x-web-MiniHTML3/</link> | <link>GitHub|https://github.com/pyhoon/MiniHTML3</link>
 Sub AppStart (Args() As String)
     App.Initialize
-	
 	App.staticfiles.Folder = File.Combine(File.DirApp, "www")
 	' Setting ctx map
 	App.ctx.Put("APP_TITLE", "MiniHtml")
 	App.ctx.Put("SERVER_URL", App.ServerUrl)
 	App.ctx.Put("APP_TRADEMARK", "Demo")
 	App.ctx.Put("APP_COPYRIGHT", "Copyright Computerise System Solutions 2026")
-	'
     App.Get("", "Index")
     App.Post("/modal", "Index")
     App.Start

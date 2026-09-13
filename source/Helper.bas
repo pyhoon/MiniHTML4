@@ -1,10 +1,18 @@
+﻿B4J=true
+Group=App
+ModulesStructureVersion=1
+Type=StaticCode
+Version=10.5
+@EndOfDesignText@
+'For generating Helper.txt Code Snippets (MH.bas)
+Sub Process_Globals
 'MiniHtml Helper
 'Version: 4.00
 	Type AlertInfo (Message As String, Status As String)
 	Type ToastInfo (Entity As String, Action As String, Message As String, Status As String)
 End Sub
 
-Public Sub CreateTag (Name As String = "", multiline As Boolean = False) As MiniHtml
+Public Sub Create (Name As String = "", multiline As Boolean = False) As MiniHtml
 	Dim tag1 As MiniHtml
 	tag1.Initialize(Name)
 	If tag1.Mode = "uniline" Or tag1.Mode = "multiline" Then
@@ -21,7 +29,7 @@ End Sub
 
 Public Sub ConvertFromBytes (Buffer() As Byte) As MiniHtml
 	Dim s As String = BytesToString(Buffer, 0, Buffer.Length, "UTF-8")
-	Return CreateTag("").Parse(s)
+	Return Create("").Parse(s)
 End Sub
 
 Public Sub ConvertToBytes (tag As MiniHtml) As Byte()
@@ -29,71 +37,71 @@ Public Sub ConvertToBytes (tag As MiniHtml) As Byte()
 End Sub
 
 Public Sub Anchor (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("a", multiline)
+	Return Create("a", multiline)
 End Sub
 
 Public Sub Button (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("button", multiline)
+	Return Create("button", multiline)
 End Sub
 
 Public Sub Div (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("div", multiline)
+	Return Create("div", multiline)
 End Sub
 
 Public Sub Span (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("span", multiline)
+	Return Create("span", multiline)
 End Sub
 
 Public Sub Strong As MiniHtml
-	Return CreateTag("strong", False)
+	Return Create("strong", False)
 End Sub
 
 Public Sub Br As MiniHtml
-	Return CreateTag("br", False)
+	Return Create("br", False)
 End Sub
 
 Public Sub Nav (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("nav", multiline)
+	Return Create("nav", multiline)
 End Sub
 
 Public Sub Form (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("form", multiline)
+	Return Create("form", multiline)
 End Sub
 
 Public Sub H1 (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("h1", multiline)
+	Return Create("h1", multiline)
 End Sub
 
 Public Sub H2 (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("h2", multiline)
+	Return Create("h2", multiline)
 End Sub
 
 Public Sub H3 (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("h3", multiline)
+	Return Create("h3", multiline)
 End Sub
 
 Public Sub H5 (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("h5", multiline)
+	Return Create("h5", multiline)
 End Sub
 
 Public Sub H6 (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("h6", multiline)
+	Return Create("h6", multiline)
 End Sub
 
 Public Sub P (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("p", multiline)
+	Return Create("p", multiline)
 End Sub
 
 Public Sub Html As MiniHtml
-	Return CreateTag("html").lang("en")
+	Return Create("html").lang("en")
 End Sub
 
 Public Sub Head (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("head", multiline)
+	Return Create("head", multiline)
 End Sub
 
 Public Sub Title (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("title", multiline)
+	Return Create("title", multiline)
 End Sub
 
 '<code>MH.Script.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js") _
@@ -102,15 +110,15 @@ End Sub
 '.integrity("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz").crossorigin("anonymous")</code>
 '<code>MH.Script.up(body1).attr("src", "$SERVER_URL$/assets/js/app.js")</code>
 Public Sub Script (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("script", multiline)
+	Return Create("script", multiline)
 End Sub
 
 Public Sub Style (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("style", multiline)
+	Return Create("style", multiline)
 End Sub
 
 Public Sub Meta As MiniHtml
-	Return CreateTag("meta")
+	Return Create("meta")
 End Sub
 
 ' Link CSS stylesheets
@@ -120,19 +128,19 @@ End Sub
 'Custom <code>MH.Link.up(head1).href("$SERVER_URL$/assets/css/main.css?v=$VERSION$")</code>
 'FavIcon <code> MH.Link("icon", "image/png").up(head1).href("/assets/img/favicon.png")</code>
 Public Sub Link (rel As String = "stylesheet", typeof As String = "") As MiniHtml
-	Return CreateTag("link").attrIfValue("rel", rel).attrIfValue("type", typeof)
+	Return Create("link").attrIfValue("rel", rel).attrIfValue("type", typeof)
 End Sub
 
 Public Sub Body As MiniHtml
-	Return CreateTag("body")
+	Return Create("body")
 End Sub
 
 Public Sub Icon (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("i", multiline)
+	Return Create("i", multiline)
 End Sub
 
 Public Sub Img As MiniHtml
-	Return CreateTag("img")
+	Return Create("img")
 End Sub
 
 'Alias of Img
@@ -141,71 +149,71 @@ Public Sub Image As MiniHtml
 End Sub
 
 Public Sub Svg As MiniHtml
-	Return CreateTag("svg")
+	Return Create("svg")
 End Sub
 
 Public Sub Path As MiniHtml
-	Return CreateTag("path")
+	Return Create("path")
 End Sub
 
 Public Sub Input As MiniHtml
-	Return CreateTag("input")
+	Return Create("input")
 End Sub
 
 Public Sub Label (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("label", multiline)
+	Return Create("label", multiline)
 End Sub
 
 Public Sub Caption (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("caption", multiline)
+	Return Create("caption", multiline)
 End Sub
 
 Public Sub Footer (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("footer", multiline)
+	Return Create("footer", multiline)
 End Sub
 
 Public Sub Table (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("table", multiline)
+	Return Create("table", multiline)
 End Sub
 
 Public Sub Tbody (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("tbody", multiline)
+	Return Create("tbody", multiline)
 End Sub
 
 Public Sub Td (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("td", multiline)
+	Return Create("td", multiline)
 End Sub
 
 Public Sub Th (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("th", multiline)
+	Return Create("th", multiline)
 End Sub
 
 Public Sub Thead (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("thead", multiline)
+	Return Create("thead", multiline)
 End Sub
 
 Public Sub Tr (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("tr", multiline)
+	Return Create("tr", multiline)
 End Sub
 
 Public Sub Ul (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("ul", multiline)
+	Return Create("ul", multiline)
 End Sub
 
 Public Sub Li (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("li", multiline)
+	Return Create("li", multiline)
 End Sub
 
 Public Sub SelectTag (multiline As Boolean = True) As MiniHtml
-	Return CreateTag("select", multiline)
+	Return Create("select", multiline)
 End Sub
 
 Public Sub Option (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("option", multiline)
+	Return Create("option", multiline)
 End Sub
 
 Public Sub Textarea (multiline As Boolean = False) As MiniHtml
-	Return CreateTag("textarea", multiline)
+	Return Create("textarea", multiline)
 End Sub
 
 ' ============================
@@ -313,11 +321,11 @@ Public Sub CardFooter As MiniHtml
 End Sub
 
 Public Sub CardTitle As MiniHtml
-	Return CreateTag("h5").cls("card-title")
+	Return Create("h5").cls("card-title")
 End Sub
 
 Public Sub CardText As MiniHtml
-	Return CreateTag("p").cls("card-text")
+	Return Create("p").cls("card-text")
 End Sub
 
 Public Sub Badge (text As String, cls As String) As MiniHtml
@@ -325,7 +333,7 @@ Public Sub Badge (text As String, cls As String) As MiniHtml
 End Sub
 
 Public Sub ListGroup As MiniHtml
-	Return CreateTag("ul").cls("list-group")
+	Return Create("ul").cls("list-group")
 End Sub
 
 Public Sub ListGroupItem (text As String, cls As String) As MiniHtml
@@ -433,7 +441,7 @@ Public Sub ImgResponsive (src As String, alt As String, cls As String) As MiniHt
 End Sub
 
 Public Sub PageHeading (text As String, tag As String) As MiniHtml
-	Return CreateTag(tag).text(text)
+	Return Create(tag).text(text)
 End Sub
 
 Public Sub ButtonIcon (text As String, iconCls As String, btnCls As String) As MiniHtml
@@ -618,3 +626,4 @@ Public Sub CreateCustomEventScript (info As ToastInfo) As MiniJs
 	Dim s As MiniJs = CreateMiniJs
 	s.AddCustomEventDispatch("entity:changed", CreateMap("entity": info.Entity, "action": info.Action, "message": info.Message, "status": info.Status))
 	Return s
+End Sub
