@@ -2,7 +2,7 @@
 Group=Classes
 ModulesStructureVersion=1
 Type=Class
-Version=10.5
+Version=10.7
 @EndOfDesignText@
 'MiniHtml
 'Version: 4.02
@@ -181,7 +181,7 @@ Private Sub create (tag As String) As MiniHtml
 	Return h
 End Sub
 
-'code: <code>html1.lang("en")</code>
+'code: <code>("en")</code>
 Public Sub lang (value As String) As MiniHtml
 	Return attr("lang", value)
 End Sub
@@ -412,7 +412,7 @@ Public Sub comment (value As String, position As String = "above") As MiniHtml
 End Sub
 
 '(deprecated) - use MH.Link or MH.Script
-'<code>head1.cdn("css", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css")</code>
+'<code>("css", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css")</code>
 Public Sub cdn (format As String, url As String) As MiniHtml
 	Select format.ToLowerCase
 		Case "script", "js"
@@ -428,29 +428,29 @@ Public Sub rel (value As String = "stylesheet") As MiniHtml
 	Return Me
 End Sub
 
-'BS5 <code>.href("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css")</code>
-'Icons <code>.href("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css")</code>
+'BS5 <code>("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css")</code>
+'Icons <code>("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css")</code>
 Public Sub href (value As String) As MiniHtml
 	mAttributes.Put("href", value)
 	Return Me
 End Sub
 
-'BS5 <code>.src("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js")</code>
-'HTMX <code>.src("https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js")</code>
-'App.js <code>.src("$SERVER_URL$/assets/js/app.js")</code>
+'BS5 <code>("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js")</code>
+'HTMX <code>("https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js")</code>
+'App.js <code>("$SERVER_URL$/assets/js/app.js")</code>
 Public Sub src (value As String) As MiniHtml
 	mAttributes.Put("src", value)
 	Return Me
 End Sub
 
-'BS5 <code>.integrity("sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y")</code>
-'HTMX <code>.integrity("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz")</code>
+'BS5 <code>("sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y")</code>
+'HTMX <code>("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz")</code>
 Public Sub integrity (hash As String) As MiniHtml
 	mAttributes.Put("integrity", hash)
 	Return Me
 End Sub
 
-'<code>.crossorigin("anonymous")</code>
+'<code>("anonymous")</code>
 Public Sub crossorigin (credentials As String) As MiniHtml
 	mAttributes.Put("crossorigin", credentials)
 	Return Me
@@ -886,7 +886,6 @@ Private Sub PrependToMap (OriginalMap As Map, NewKey As Object, NewValue As Obje
 End Sub
 
 'Prepend defer to script tag
-'<code>body1.cdn("script", "/assets/js/cdn.min.js").defer</code>
 Public Sub defer As MiniHtml
 	PrependToMap(mAttributes, "defer", "")
 	Return Me
