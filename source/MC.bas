@@ -7,7 +7,7 @@ Version=10.5
 Sub Process_Globals
 'Don't edit this file, edit Cache.bas instead
 'MiniHtml Cache class (not incuded in the MiniHtml library)
-'Version: 4.00
+'Version: 4.02
 End Sub
 
 Private Sub EmptyTag As MiniHtml
