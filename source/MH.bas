@@ -2,7 +2,7 @@
 Group=App
 ModulesStructureVersion=1
 Type=StaticCode
-Version=10.5
+Version=10.7
 @EndOfDesignText@
 'Don't edit this file, edit Helper.bas instead (except during production)
 Sub Process_Globals
@@ -104,11 +104,11 @@ Public Sub Title (multiline As Boolean = False) As MiniHtml
 	Return Create("title", multiline)
 End Sub
 
-'<code>MH.Script.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js") _
+'<code>.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js") _
 '.integrity("sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y").crossorigin("anonymous")</code>
-'<code>MH.Script.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js") _
+'<code>.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js") _
 '.integrity("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz").crossorigin("anonymous")</code>
-'<code>MH.Script.up(body1).attr("src", "$SERVER_URL$/assets/js/app.js")</code>
+'<code>.up(body1).attr("src", "$SERVER_URL$/assets/js/app.js")</code>
 Public Sub Script (multiline As Boolean = False) As MiniHtml
 	Return Create("script", multiline)
 End Sub
