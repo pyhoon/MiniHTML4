@@ -2,7 +2,7 @@
 Group=App
 ModulesStructureVersion=1
 Type=StaticCode
-Version=10.5
+Version=10.7
 @EndOfDesignText@
 Sub Process_Globals
 'Don't edit this file, edit Cache.bas instead
