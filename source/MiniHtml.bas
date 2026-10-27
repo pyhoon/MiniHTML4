@@ -443,8 +443,9 @@ Public Sub src (value As String) As MiniHtml
 	Return Me
 End Sub
 
-'BS5 <code>("sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y")</code>
-'HTMX <code>("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz")</code>
+'HTMX JS <code>("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz")</code>
+'BS5 JS <code>("sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y")</code>
+'BS5 CSS <code>("sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB")</code>
 Public Sub integrity (hash As String) As MiniHtml
 	mAttributes.Put("integrity", hash)
 	Return Me
