@@ -2,7 +2,7 @@
 Group=Views
 ModulesStructureVersion=1
 Type=Class
-Version=10.3
+Version=10.7
 @EndOfDesignText@
 'Template use for generating MainView.b4x_excluded Class Templates
 ' Main View Class
