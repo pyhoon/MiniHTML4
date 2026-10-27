@@ -6,8 +6,8 @@ Version=10.7
 @EndOfDesignText@
 'Template use for generating View.txt Code Snippets
 Sub Class_Globals
-	'MiniHtml View class
-	'Version 4.00
+'MiniHtml View class
+'Version 4.02
 	Private App As EndsMeet$end$
 End Sub
 
