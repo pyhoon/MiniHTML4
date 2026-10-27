@@ -373,7 +373,15 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Changelog
 
-### v4.00 (Latest)
+### v4.02 (Latest)
+
+**Core and B4J updates:**
+- `MiniHtml.build` now respects each node's `Indentation` setting instead of forcing child indentation when a parent disables indentation.
+- `addTo(parentTag)` safely does nothing when the parent is uninitialized; otherwise it attaches the tag and returns it for fluent chaining.
+- Updated the B4J asset-folder property to `App.AssetsFolder`, renamed the exported template label to `View Class (Main)`, upgraded project metadata to B4J 10.7, and rebuilt the 4.02 library.
+- Corrected CDN/SRI examples to use `.src(...)` and `.href(...)`; added the Bootstrap CSS integrity example.
+
+### v4.00
 
 **Library version bump (`manifest.txt` → 4.00):**
 - `Helper.bas` / `MH.bas` — `Create` now takes `(Name, multiline)`; `Link` now takes `(rel, typeof)`; `NavbarExpand` takes `(cls, expand, brand_icon_cls, brand_text)`; `ProgressBar` first param renamed to `NowPercent`
