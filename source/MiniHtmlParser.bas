@@ -2,7 +2,7 @@
 Group=Classes
 ModulesStructureVersion=1
 Type=Class
-Version=8.3
+Version=10.7
 @EndOfDesignText@
 'MiniHtmlParser
 'Version: 1.02
