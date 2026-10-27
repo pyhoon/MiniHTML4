@@ -2,7 +2,7 @@
 Group=Handlers
 ModulesStructureVersion=1
 Type=Class
-Version=10.5
+Version=10.7
 @EndOfDesignText@
 'Index handler
 'Version: 4.02
