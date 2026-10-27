@@ -6,8 +6,8 @@ Version=10.7
 @EndOfDesignText@
 'Template use for generating Boilerplate.txt Code Snippets
 Sub Class_Globals
-	' MiniHtml Boilerplate class
-	' Version: 4.02
+' MiniHtml Boilerplate class
+' Version: 4.02
 	Private mContent As MiniHtml
 End Sub
 
