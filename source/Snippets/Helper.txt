@@ -1,5 +1,5 @@
-	'MiniHtml Helper
-	'Version: 4.02
+'MiniHtml Helper
+'Version: 4.02
 	Type AlertInfo (Message As String, Status As String)
 	Type ToastInfo (Entity As String, Action As String, Message As String, Status As String)
 End Sub
@@ -96,11 +96,11 @@ Public Sub Title (multiline As Boolean = False) As MiniHtml
 	Return Create("title", multiline)
 End Sub
 
-'<code>MH.Script.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js") _
+'<code>.up(body1).src("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js") _
 '.integrity("sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y").crossorigin("anonymous")</code>
-'<code>MH.Script.up(body1).attr("src", "https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js") _
+'<code>.up(body1).src("https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js") _
 '.integrity("sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz").crossorigin("anonymous")</code>
-'<code>MH.Script.up(body1).attr("src", "$SERVER_URL$/assets/js/app.js")</code>
+'<code>.up(body1).src("$SERVER_URL$/assets/js/app.js")</code>
 Public Sub Script (multiline As Boolean = False) As MiniHtml
 	Return Create("script", multiline)
 End Sub
@@ -114,11 +114,11 @@ Public Sub Meta As MiniHtml
 End Sub
 
 ' Link CSS stylesheets
-'BS5 <code>MH.Link.up(head1).href("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css") _
+'BS5 <code>.up(head1).href("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css") _
 '.integrity("sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB").crossorigin("anonymous")</code>
-'Icons <code>MH.Link.up(head1).href("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css")</code>
-'Custom <code>MH.Link.up(head1).href("$SERVER_URL$/assets/css/main.css?v=$VERSION$")</code>
-'FavIcon <code> MH.Link("icon", "image/png").up(head1).href("/assets/img/favicon.png")</code>
+'Icons <code>.up(head1).href("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css")</code>
+'Custom <code>.up(head1).href("$SERVER_URL$/assets/css/main.css?v=$VERSION$")</code>
+'FavIcon <code>("icon", "image/png").up(head1).href("/assets/img/favicon.png")</code>
 Public Sub Link (rel As String = "stylesheet", typeof As String = "") As MiniHtml
 	Return Create("link").attrIfValue("rel", rel).attrIfValue("type", typeof)
 End Sub
