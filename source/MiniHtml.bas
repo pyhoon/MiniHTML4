@@ -5,7 +5,7 @@ Type=Class
 Version=10.5
 @EndOfDesignText@
 'MiniHtml
-'Version: 4.00
+'Version: 4.02
 Sub Class_Globals
 	Private mFlat As Boolean
 	Private mLineFeed As Boolean
@@ -81,8 +81,9 @@ Sub build (indent As Int = -1) As String
 		sb.Append($"<!DOCTYPE ${mDocType}>"$)
 	End If
 	
-	If mParent.IsInitialized And mParent.Indentation = False Then indent = 1
-	If mLineFeed Then sb.Append(CRLF)
+	If mLineFeed Then
+		sb.Append(CRLF)
+	End If
 	
 	' Build Left Indent
 	Dim sb2 As StringBuilder
@@ -92,7 +93,9 @@ Sub build (indent As Int = -1) As String
 	Next
 	sIndent = sb2.ToString
 	
-	If mIndentation Then sb.Append(sIndent) '(experiment)
+	If mIndentation Then	
+		sb.Append(sIndent) '(experiment)
+	End If
 	
 	'handle empty name such as raw text or comment
 	If mMode <> "" And mName <> ModeNoTag Then
@@ -110,7 +113,6 @@ Sub build (indent As Int = -1) As String
 	sSpacing = sb3.ToString
 	
 	For Each key As String In mAttributes.Keys
-		'Log(key & "->" & mAttributes.Get(key))
 		Dim attribute As String = mAttributes.Get(key)
 		
 		sb.Append(Separator)
@@ -274,10 +276,8 @@ End Sub
 'Add current tag into a Parent's Children list
 'Return current tag
 Public Sub addTo (parentTag As MiniHtml) As MiniHtml
-	'Return parentTag.add(Me)
-	parentTag.add(Me)
-	mParent = parentTag
-	Return Me
+	If NotInitialized(parentTag) Then Return Me 'experiment
+	Return parentTag.addChild(Me)
 End Sub
 
 'Add to Parent and return the current (child) tag (alias of addTo)
@@ -776,8 +776,8 @@ Public Sub toMap As Map
 	Dim props As Map
 	props.Initialize
 	
-	If mClasses.Size > 0 Then props.Put("class", ClassesAsString)
-	If mStyles.Size > 0 Then props.Put("style", StylesAsString)
+	If mClasses.Size > 0 Then props.Put("class", classesAsString)
+	If mStyles.Size > 0 Then props.Put("style", stylesAsString)
 	
 	If mFlat Then props.Put("flat", True)
 	If mIndentation Then props.Put("indentation", True)
