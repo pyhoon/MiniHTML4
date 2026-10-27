@@ -1,6 +1,26 @@
 # Changelog
 
-## v4.00 (Latest)
+## v4.02 (Latest)
+
+### Core rendering and parent attachment
+
+- `MiniHtml.build` no longer forces a child indent to level 1 when its parent has `Indentation = False`; indentation now follows the explicit build depth and each node's own indentation setting.
+- `MiniHtml.addTo(parentTag)` now safely returns the current tag without attaching it when `parentTag` is uninitialized. For an initialized parent it delegates to `addChild` and returns the child, preserving the fluent `up`/`addTo` pattern.
+
+### B4J project and library metadata
+
+- Updated B4J asset setup from `App.staticfiles.Folder` to `App.AssetsFolder` to match the current EndsMeet API.
+- Renamed the exported custom class template from `Main View Class` to `View Class (Main)`; the class remains `MainView`.
+- Updated the project and module IDE metadata to B4J 10.7 and rebuilt `release/MiniHTML.b4xlib` with manifest version 4.02.
+
+### Examples and templates
+
+- Corrected CDN/SRI examples to use the fluent `.src(...)` and `.href(...)` methods; documented the Bootstrap CSS integrity hash alongside the JS and HTMX hashes.
+- Updated the version labels in the source templates and generated snippets to 4.02.
+
+---
+
+## v4.00
 
 ### Docs synced with source (Version 4.00)
 
