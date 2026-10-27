@@ -6,8 +6,8 @@ Version=10.7
 @EndOfDesignText@
 'Template use for generating Handler.txt Code Snippets
 Sub Class_Globals
-	'MiniHtml Handler class
-	'Version 4.00
+'MiniHtml Handler class
+'Version 4.02
 	Private App As EndsMeet
 	Private Path As String
 	Private Method As String
