@@ -7,7 +7,7 @@ Version=10.7
 'Don't edit this file, edit Helper.bas instead (except during production)
 Sub Process_Globals
 'MiniHtml Helper class
-'Version: 4.03
+'Version: 4.04
 	'Type AlertInfo (Message As String, Status As String)
 	'Type ToastInfo (Entity As String, Action As String, Message As String, Status As String)
 End Sub
