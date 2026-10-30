@@ -252,14 +252,14 @@ Public Sub multilineIf (condition As Boolean) As MiniHtml
 End Sub
 
 'Set text attribute if condition is true
-Public Sub textIf (condition As Boolean, value As String) As MiniHtml
-	If condition Then Return text(value)
+Public Sub textIf (condition As Boolean, value As String, escaped As Boolean = True) As MiniHtml
+	If condition Then Return text(value, True, escaped)
 	Return Me
 End Sub
 
 'Set text attribute if value is non zero length string
-Public Sub textIfValue (value As String) As MiniHtml
-	Return textIf(value <> "", value)
+Public Sub textIfValue (value As String, escaped As Boolean = True) As MiniHtml
+	Return textIf(value <> "", value, escaped)
 End Sub
 
 'Add a new tag into Children list
@@ -405,7 +405,7 @@ Public Sub comment (value As String, position As String = "above") As MiniHtml
 		Dim pt As MiniHtml = ctp
 		Dim pos As Int = pt.Children.IndexOf(ct)
 		If pos > -1 Then
-			Dim nt As MiniHtml = create(ModeNoTag).text($"<!--${value.Replace("--", "")}-->"$)
+			Dim nt As MiniHtml = create(ModeNoTag).text($"<!--${value.Replace("--", "")}-->"$, True, False)
 			If position.EqualsIgnoreCase("below") Then
 				pt.Children.InsertAt(pos + 1, nt)
 			Else
@@ -463,16 +463,42 @@ Public Sub crossorigin (credentials As String) As MiniHtml
 End Sub
 
 ' Add inner text
-Public Sub text (value As String, wrap As Boolean = True) As MiniHtml
+' escaped = True (default) encodes HTML special characters; pass False to insert raw markup
+Public Sub text (value As String, wrap As Boolean = True, escaped As Boolean = True) As MiniHtml
 	mIndentation = wrap
-	mChildren.Add(value)
+	If escaped Then
+		mChildren.Add(EscapeHtml(value))
+	Else
+		mChildren.Add(value)
+	End If
 	Return Me
 End Sub
 
+' Add inner text with HTML special characters escaped
+Public Sub esc (value As String, wrap As Boolean = True) As MiniHtml
+	Return text(value, wrap, True)
+End Sub
+
+' Escape HTML special characters in a text value
+Public Sub EscapeHtml (value As String) As String
+	If value = "" Then Return value
+	Return value.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace(QUOTE, "&quot;").Replace("'", "&#39;")
+End Sub
+
 ' Replace children with a text or object
-Public Sub replace (value As Object) As MiniHtml
+' escaped = True (default) encodes String values; pass False to insert raw markup
+Public Sub replace (value As Object, escaped As Boolean = True) As MiniHtml
 	mChildren.Clear
-	mChildren.Add(value)
+	If value Is String Then
+		Dim s As String = value
+		If escaped Then
+			mChildren.Add(EscapeHtml(s))
+		Else
+			mChildren.Add(s)
+		End If
+	Else
+		mChildren.Add(value)
+	End If
 	Return Me
 End Sub
 
@@ -635,8 +661,8 @@ Public Sub convertToMiniHtml (node1 As HtmlNode) As MiniHtml
 			If node1.Name = "input" Or node1.Name = "option" Then
 				parent.attr(att.Key, att.Value.Trim)
 			Else
-				' Keep leading and trailing whitespace in text values
-				parent.Text(att.Value)
+				' Keep leading and trailing whitespace in text values; parser values are already encoded
+				parent.Text(att.Value, True, False)
 			End If
 		Else If att.Key = "action" Then
 			parent.attr(att.Key, att.Value) '(experiment) allow empty value
@@ -730,7 +756,7 @@ Private Sub shorthandToMiniHtml (m As Map) As MiniHtml
 				Case "style"
 					el.sty(value)
 				Case "text"
-					el.text(value)
+					el.text(value, True, False)
 				Case "attrs"
 					Dim attributes As Map = value
 					el.attrs(attributes)
@@ -740,7 +766,7 @@ Private Sub shorthandToMiniHtml (m As Map) As MiniHtml
 						If chd Is Map Then
 							shorthandToMiniHtml(chd).up(el)
 						Else If chd Is String Then
-							el.text(chd)
+							el.text(chd, True, False)
 						End If
 					Next
 				Case "mode"
@@ -772,7 +798,7 @@ Private Sub shorthandToMiniHtml (m As Map) As MiniHtml
 			End Select
 		Next
 	Else If props Is String Then
-		el.text(props)
+		el.text(props, True, False)
 	End If
 	Return el
 End Sub
@@ -855,7 +881,7 @@ End Sub
 ' Wrap script inside script tags
 'output: <code><script>value</script></code>
 Public Sub script (value As String) As MiniHtml
-	mChildren.Add(create("script").multiline.text(value))
+	mChildren.Add(create("script").multiline.text(value, True, False))
 	Return Me
 End Sub
 

@@ -136,9 +136,11 @@ File.WriteString(File.DirApp, "index.html", html1.build)
 - `addChild(ChildTag)` — Add child, returns child
 - `up(ParentTag)` / `addTo(ParentTag)` — Add self to parent, returns self
 - `down(ChildTag)` — Add child, returns child (alias for `addChild`)
-- `text(value, wrap)` — Add inner text
-- `replace(value)` — Clear children and set inner content
-- `textIf(condition, value)` / `textIfValue(value)` — Conditional text
+- `text(value, wrap, escaped)` — Add inner text; HTML special characters are escaped by default (`escaped = True`), pass `False` for raw markup
+- `esc(value, wrap)` — Shorthand for `text(value, wrap, True)`
+- `EscapeHtml(value)` — Escape HTML special characters in a text value (used by `esc`)
+- `replace(value, escaped)` — Clear children and set inner content; String values are escaped by default
+- `textIf(condition, value, escaped)` / `textIfValue(value, escaped)` — Conditional text (escaped by default)
 - `script(value)` — Add `<script>value</script>` child
 - `linebreak` — Add a non-indented line break
 - `comment(value, position)` — Insert `<!-- value -->` above/below current tag (`--` sanitized; requires parent)
@@ -257,7 +259,7 @@ Build HTML from JSON using the shorthand format.
 {"tagname": {"property": "value", ...}}
 ```
 
-The outer key is the tag name, and its value is a map of properties. A string value is treated as inner text.
+The outer key is the tag name, and its value is a map of properties. A string value is treated as inner text. JSON text is inserted raw to keep `toMap`/`fromMap` round-trips intact; use `EscapeHtml(value)` when the source is untrusted.
 
 ### Properties
 
@@ -378,6 +380,7 @@ MIT License. See [LICENSE](LICENSE).
 **Rendering fixes:**
 - `MiniHtml.build` now wraps the closing tag of a uniline element onto its own line when its last child is a tag that renders on its own line; text-only and inline content keep the closing tag inline.
 - `convertToMiniHtml` preserves leading and trailing whitespace in text values when parsed HTML is rebuilt; `input`/`option` `value` attributes are still trimmed.
+- Added an optional `escaped` parameter to `text(value, wrap, escaped)` and `replace(value, escaped)`; text is escaped by default, with `escaped = False` for raw markup. `esc(value, wrap)` is shorthand. Comment, script and parser paths opt out to avoid double-encoding.
 - Library version bumped to 4.03 (`manifest.txt` and module version labels).
 
 ### v4.02
