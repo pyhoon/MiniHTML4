@@ -1,6 +1,6 @@
 'Template use for generating MainView.b4x_excluded Class Templates
 ' Main View Class
-' Version: 4.02
+' Version: 4.03
 Sub Class_Globals
 	Private mModal, mToast, mContent, mSubContent As MiniHtml
 End Sub

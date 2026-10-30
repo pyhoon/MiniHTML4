@@ -1,5 +1,5 @@
 'MiniHtml Handler class
-'Version 4.02
+'Version 4.03
 	Private App As EndsMeet
 	Private Path As String
 	Private Method As String

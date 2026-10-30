@@ -5,7 +5,7 @@ Type=Class
 Version=10.7
 @EndOfDesignText@
 'MiniHtml
-'Version: 4.02
+'Version: 4.03
 Sub Class_Globals
 	Private mFlat As Boolean
 	Private mLineFeed As Boolean
@@ -159,10 +159,15 @@ Sub build (indent As Int = -1) As String
 	If mName <> ModeNoTag Then
 		Select mMode
 			Case ModeUniline
-				If mChildren.Size > 0 Then
-					If mFlat = False And mMode = ModeMultiline Then
-						sb.Append(CRLF)
-						sb.Append(sIndent)
+				If mLineFeed And mChildren.Size > 0 And mFlat = False Then
+					' Wrap the closing tag when the last child is a tag rendered on its own line
+					Dim lastChild As Object = mChildren.Get(mChildren.Size - 1)
+					If lastChild Is MiniHtml Then
+						Dim lastTag As MiniHtml = lastChild
+						If lastTag.Name <> "" And lastTag.mLineFeed Then
+							sb.Append(CRLF)
+							If mIndentation Then sb.Append(sIndent)
+						End If
 					End If
 				End If
 				sb.Append("</" & mName & ">")
@@ -627,10 +632,10 @@ Public Sub convertToMiniHtml (node1 As HtmlNode) As MiniHtml
 		' Skip class and style as we already handled them
 		If att.Key = "class" Or att.Key = "style" Then Continue
 		If att.Key = "value" And att.Value.Trim.Length > 0 Then
-			att.Value = att.Value.Trim
 			If node1.Name = "input" Or node1.Name = "option" Then
-				parent.attr(att.Key, att.Value)
+				parent.attr(att.Key, att.Value.Trim)
 			Else
+				' Keep leading and trailing whitespace in text values
 				parent.Text(att.Value)
 			End If
 		Else If att.Key = "action" Then

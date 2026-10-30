@@ -373,7 +373,14 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Changelog
 
-### v4.02 (Latest)
+### v4.03 (Latest)
+
+**Rendering fixes:**
+- `MiniHtml.build` now wraps the closing tag of a uniline element onto its own line when its last child is a tag that renders on its own line; text-only and inline content keep the closing tag inline.
+- `convertToMiniHtml` preserves leading and trailing whitespace in text values when parsed HTML is rebuilt; `input`/`option` `value` attributes are still trimmed.
+- Library version bumped to 4.03 (`manifest.txt` and module version labels).
+
+### v4.02
 
 **Core and B4J updates:**
 - `MiniHtml.build` now respects each node's `Indentation` setting instead of forcing child indentation when a parent disables indentation.
