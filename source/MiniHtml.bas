@@ -677,15 +677,12 @@ Public Sub convertToMiniHtml (node1 As HtmlNode) As MiniHtml
 	Next
     
 	For Each node As HtmlNode In node1.Children
-		Dim tag2 As MiniHtml = convertToMiniHtml(node)
-		If tag2.Name = "" Then ' If tag2.Name = "text" Then '(experiment)
-			If tag2.Attributes.ContainsKey("value") Then
-				' ignore text nodes with "value" attribute
-			Else
-				parent.add(tag2)
-			End If
+		If node.Name = "" Then
+			' Flatten parsed text nodes so text renders inline, like .text()
+			Dim value As String = parser.GetAttributeValue(node, "value", "")
+			If value.Trim.Length > 0 Then parent.mChildren.Add(value)
 		Else
-			parent.add(tag2)
+			parent.add(convertToMiniHtml(node))
 		End If
 	Next
 	Return parent

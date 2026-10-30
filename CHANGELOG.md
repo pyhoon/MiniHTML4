@@ -6,6 +6,7 @@
 
 - `MiniHtml.build` now wraps the closing tag of a uniline element onto its own line when its last child is a tag that renders on its own line. For example, `<div><div>...</div></div>` no longer ends with `</div></div>`; text-only and inline content keep the closing tag inline.
 - `convertToMiniHtml` no longer trims text node values, so leading and trailing spaces survive when parsed HTML is rebuilt. `input`/`option` `value` attributes are still trimmed.
+- Parsed text nodes are flattened into their parent as inline text, so `<th>Name</th>`, `<td>1</td>` and similar tags no longer put the text on its own indented line.
 - Added an optional `escaped` parameter to `text(value, wrap, escaped)` and `replace(value, escaped)`, plus the `EscapeHtml(value)` helper. Text is escaped by default; pass `escaped = False` for raw markup. Internal comment, script and parser paths opt out so they are not double-encoded. `esc(value, wrap)` remains as shorthand.
 
 ---
