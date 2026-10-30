@@ -5,7 +5,7 @@ Type=Class
 Version=10.7
 @EndOfDesignText@
 'MiniHtml
-'Version: 4.04
+'Version: 4.05
 Sub Class_Globals
 	Private mFlat As Boolean
 	Private mLineFeed As Boolean

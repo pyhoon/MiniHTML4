@@ -7,7 +7,7 @@ Version=10.5
 'For generating Cache.txt Code Snippets (MC.bas)
 Sub Process_Globals
 'MiniHtml Cache
-'Version: 4.04
+'Version: 4.05
 End Sub
 
 Private Sub EmptyTag As MiniHtml

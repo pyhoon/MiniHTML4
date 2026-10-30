@@ -5,7 +5,7 @@ Type=Class
 Version=10.7
 @EndOfDesignText@
 'Index handler
-'Version: 4.04
+'Version: 4.05
 Sub Class_Globals
 	Private App As EndsMeet
 	Private Path As String

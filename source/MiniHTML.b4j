@@ -22,7 +22,7 @@ NumberOfModules=9
 Version=10.7
 @EndOfDesignText@
 'Product: MiniHtml
-'Version: 4.04
+'Version: 4.05
 'License: MIT License
 'Developer: Poon Yip Hoon (Aeric)
 #Region Project Attributes
@@ -36,7 +36,7 @@ Version=10.7
 'Step 2
 #Macro: Title, Create Snippets, ide://run?File=%PROJECT%\create_snippets_with_checking.bat&Args=..\Cache.bas&Args=..\Helper.bas&Args=..\Handler.bas&Args=..\Model.bas&Args=..\View.bas&Args=..\Boilerplate.bas
 'Step 3
-#Macro: Title, Update Manifest, ide://run?File=%ADDITIONAL%\manifest-writer.jar&Args=%PROJECT%&Args=%PROJECT%&Args=Author&Args=Aeric+Poon&Args=Version&Args=4.04&Args=B4A.DependsOn&Args=B4XCollections,JSON&Args=B4i.DependsOn&Args=B4XCollections,iJSON&Args=B4J.DependsOn&Args=B4XCollections,Json&Args=CustomClassTemplates&Args=View+Class+(Main)|MainView
+#Macro: Title, Update Manifest, ide://run?File=%ADDITIONAL%\manifest-writer.jar&Args=%PROJECT%&Args=%PROJECT%&Args=Author&Args=Aeric+Poon&Args=Version&Args=4.05&Args=B4A.DependsOn&Args=B4XCollections,JSON&Args=B4i.DependsOn&Args=B4XCollections,iJSON&Args=B4J.DependsOn&Args=B4XCollections,Json&Args=CustomClassTemplates&Args=View+Class+(Main)|MainView
 'Step 4
 #Macro: Title, Create B4X Lib, ide://run?File=%JAVABIN%\jar.exe&WorkingDirectory=..&Args=-cMf&Args=..\release\%PROJECT_NAME%.b4xlib&Args=Snippets&Args=MiniHtml.bas&Args=MiniHtmlParser.bas&Args=MainView.b4x_excluded&Args=manifest.txt&Args=LICENSE
 'Step 5
