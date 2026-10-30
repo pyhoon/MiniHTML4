@@ -1,6 +1,6 @@
 # Changelog
 
-## v4.03 (Latest)
+## v4.05 (Latest)
 
 ### Rendering fixes
 
@@ -8,6 +8,7 @@
 - `convertToMiniHtml` no longer trims text node values, so leading and trailing spaces survive when parsed HTML is rebuilt. `input`/`option` `value` attributes are still trimmed.
 - Parsed text nodes are flattened into their parent as inline text, so `<th>Name</th>`, `<td>1</td>` and similar tags no longer put the text on its own indented line.
 - Added an optional `escaped` parameter to `text(value, wrap, escaped)` and `replace(value, escaped)`, plus the `EscapeHtml(value)` helper. Text is escaped by default; pass `escaped = False` for raw markup. Internal comment, script and parser paths opt out so they are not double-encoded. `esc(value, wrap)` remains as shorthand.
+- Library version bumped to 4.05 (`manifest.txt` and module version labels); 4.04 was a version-only bump.
 
 ---
 

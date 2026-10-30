@@ -375,14 +375,14 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Changelog
 
-### v4.03 (Latest)
+### v4.05 (Latest)
 
 **Rendering fixes:**
 - `MiniHtml.build` now wraps the closing tag of a uniline element onto its own line when its last child is a tag that renders on its own line; text-only and inline content keep the closing tag inline.
 - `convertToMiniHtml` preserves leading and trailing whitespace in text values when parsed HTML is rebuilt; `input`/`option` `value` attributes are still trimmed.
 - Parsed text nodes are flattened into their parent, so `<th>Name</th>`, `<td>1</td>` and similar tags keep text inline instead of starting a new indented line.
 - Added an optional `escaped` parameter to `text(value, wrap, escaped)` and `replace(value, escaped)`; text is escaped by default, with `escaped = False` for raw markup. `esc(value, wrap)` is shorthand. Comment, script and parser paths opt out to avoid double-encoding.
-- Library version bumped to 4.03 (`manifest.txt` and module version labels).
+- Library version bumped to 4.05 (`manifest.txt` and module version labels); 4.04 was a version-only bump.
 
 ### v4.02
 
